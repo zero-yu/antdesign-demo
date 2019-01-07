@@ -25,6 +25,11 @@ export default [
         icon: 'dashboard',
         routes: [
           {
+            path: '/dashboard/TestPage',
+            name: 'test',
+            component: './Dashboard/TestPage',
+          },
+          {
             path: '/dashboard/analysis',
             name: 'analysis',
             component: './Dashboard/Analysis',

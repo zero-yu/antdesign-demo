@@ -1,10 +1,14 @@
-import { queryActivities } from '@/services/api';
-
+import { queryActivities, fakeSubmitForm ,queryRule} from '@/services/api';
+import { message } from 'antd';
 export default {
   namespace: 'activities',
 
   state: {
-    list: [],
+    data: {
+      list: [],
+      pagination: {},
+    },
+    test:'OK'
   },
 
   effects: {
@@ -15,6 +19,14 @@ export default {
         payload: Array.isArray(response) ? response : [],
       });
     },
+    *submitRegularForm(_, { call,put }) {
+      const response = yield call(queryRule);
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+      message.success('OK')
+    },
   },
 
   reducers: {
@@ -22,6 +34,13 @@ export default {
       return {
         ...state,
         list: action.payload,
+      };
+    },
+    save(state, action) {
+      return {
+        ...state,
+        data: action.payload,
+        status:'ERROR'
       };
     },
   },
